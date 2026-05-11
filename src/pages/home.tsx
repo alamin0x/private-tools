@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react"
 import { Link } from "react-router"
 import { tools, categories, type Category } from "@/lib/tools-registry"
-import { Search, ArrowRight } from "lucide-react"
+import { Search, ArrowRight, Zap } from "lucide-react"
 import { Logo } from "@/components/logo"
 import * as Icons from "lucide-react"
 import type React from "react"
