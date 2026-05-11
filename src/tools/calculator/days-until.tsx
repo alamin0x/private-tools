@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ToolHeader from "@/components/tool-header";
+import { DatePicker } from "@/components/ui/date-picker";
 
 export default function DaysUntil() {
   const [target, setTarget] = useState("");
@@ -25,10 +26,12 @@ export default function DaysUntil() {
           <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--color-muted-foreground)" }}>Event Name (optional)</label>
           <input className="input-base" placeholder="e.g. New Year, Birthday…" value={label} onChange={e => setLabel(e.target.value)} />
         </div>
-        <div>
-          <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--color-muted-foreground)" }}>Target Date</label>
-          <input type="date" className="input-base" value={target} onChange={e => setTarget(e.target.value)} />
-        </div>
+        <DatePicker 
+          label="Target Date" 
+          value={target} 
+          onChange={setTarget} 
+          placeholder="Select target date..."
+        />
       </div>
       {r && (
         <div className="rounded-xl p-6 text-center space-y-3" style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)" }}>

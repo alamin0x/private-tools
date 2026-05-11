@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ToolHeader from "@/components/tool-header";
+import { DatePicker } from "@/components/ui/date-picker";
 
 export default function AgeCalculator() {
   const [dob, setDob] = useState("");
@@ -34,9 +35,14 @@ export default function AgeCalculator() {
   return (
     <div className="max-w-xl mx-auto space-y-6">
       <ToolHeader title="Age Calculator" description="Calculate your exact age and days until your next birthday." />
-      <div>
-        <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--color-muted-foreground)" }}>Date of Birth</label>
-        <input type="date" className="input-base" max={today.toISOString().split("T")[0]} value={dob} onChange={e => setDob(e.target.value)} />
+      <div className="max-w-sm">
+        <DatePicker 
+          label="Date of Birth" 
+          value={dob} 
+          onChange={setDob} 
+          max={today.toISOString().split("T")[0]}
+          placeholder="Select your birth date..."
+        />
       </div>
       {result && (
         <>
