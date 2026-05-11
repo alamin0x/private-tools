@@ -1,13 +1,13 @@
 # 🛡️ PrivateTools
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-id/deploy-status)](https://privatetools.netlify.app)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/57999882-6804-4b5c-9c32-9b2f694e9766/deploy-status)](https://private-tools.netlify.app/)
 ![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
 
 **PrivateTools** is a sleek, modern, and privacy-first collection of 24+ essential developer and utility tools. Everything runs locally in your browser—no data ever leaves your machine.
 
-[**Launch App →**](https://privatetools.netlify.app)
+[**Launch App →**](https://private-tools.netlify.app/)
 
 ---
 
