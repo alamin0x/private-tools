@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect, useCallback } from "react"
 import ToolHeader from "@/components/tool-header"
 import { 
-  Settings2, History, Trophy, Play, Volume2, VolumeX, 
-  Trash2, Timer, Palette, Copy, Check, Type
+  Settings2, History, Trophy, Play, 
+  Trash2, Copy, Check, Type
 } from "lucide-react"
 import confetti from "canvas-confetti"
 
@@ -25,10 +25,10 @@ export default function WheelOfNames() {
   const [copied, setCopied] = useState(false)
   
   const [theme, setTheme] = useState<Theme>("modern")
-  const [soundEnabled, setSoundEnabled] = useState(true)
+  const soundEnabled = true
   const [removeWinner, setRemoveWinner] = useState(false)
   const [duration, setDuration] = useState(5)
-  const [volume, setVolume] = useState(0.5)
+  const volume = 0.5
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const stateRef = useRef({ 
