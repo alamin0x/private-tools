@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react"
 import ToolHeader from "@/components/tool-header"
-import { Settings2, History, RotateCcw, Trash2, Trophy, Play, Volume2, VolumeX, Sparkles } from "lucide-react"
+import { Settings2, History, Trophy, Play, Volume2, VolumeX, Sparkles } from "lucide-react"
 import confetti from "canvas-confetti"
 
 type Theme = "classic" | "neon" | "pastel" | "sunset" | "ocean"
@@ -21,7 +21,7 @@ export default function WheelOfNames() {
   const [theme, setTheme] = useState<Theme>("classic")
   const [soundEnabled, setSoundEnabled] = useState(true)
   const [removeWinner, setRemoveWinner] = useState(false)
-  const [spinDuration, setSpinDuration] = useState(5) // seconds
+  const spinDuration = 5 // seconds
   
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const spinRef = useRef({ angle: 0, velocity: 0, animId: 0 })
@@ -125,7 +125,6 @@ export default function WheelOfNames() {
     
     // Random target based on duration
     const minSpins = 5
-    const targetVelocity = (minSpins * 2 * Math.PI) / (spinDuration * 60)
     spinRef.current.velocity = 0.25 + Math.random() * 0.15
     
     let lastSliceIdx = -1
