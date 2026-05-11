@@ -56,7 +56,7 @@ export function Header({ onSearchClick }: HeaderProps) {
               <Zap className="w-3.5 h-3.5 text-white" />
             </div>
             <span className="font-bold text-sm" style={{ color: "var(--color-foreground)" }}>
-              Dev<span className="gradient-text">Toolbox</span>
+              Private<span className="gradient-text">Tools</span>
             </span>
           </NavLink>
 
@@ -131,7 +131,7 @@ export function Header({ onSearchClick }: HeaderProps) {
                   <Zap className="w-4 h-4 text-white" />
                 </div>
                 <span className="font-bold text-base" style={{ color: "var(--color-foreground)" }}>
-                  Dev<span className="gradient-text">Toolbox</span>
+                  Private<span className="gradient-text">Tools</span>
                 </span>
               </div>
               <button

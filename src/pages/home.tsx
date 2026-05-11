@@ -51,12 +51,12 @@ export default function Home() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold mb-3" style={{ letterSpacing: "-0.03em", lineHeight: 1.1 }}>
-          <span style={{ color: "var(--color-foreground)" }}>Dev</span>
-          <span className="gradient-text">Toolbox</span>
+          <span style={{ color: "var(--color-foreground)" }}>Private</span>
+          <span className="gradient-text">Tools</span>
         </h1>
 
         <p className="text-base md:text-lg mb-6" style={{ color: "var(--color-muted-foreground)" }}>
-          {tools.length} powerful tools for developers &amp; creators — all free, all instant.
+          {tools.length} powerful tools for your daily tasks — all free, all instant.
         </p>
 
         {/* Stats row */}

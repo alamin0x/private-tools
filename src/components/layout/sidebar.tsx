@@ -34,7 +34,7 @@ export function Sidebar() {
           <Zap className="w-4 h-4 text-white" />
         </div>
         <NavLink to="/" className="font-bold text-base" style={{ color: "var(--color-foreground)", textDecoration: "none", letterSpacing: "-0.01em" }}>
-          Dev<span className="gradient-text">Toolbox</span>
+          Private<span className="gradient-text">Tools</span>
         </NavLink>
       </div>
 
