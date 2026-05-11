@@ -124,7 +124,6 @@ export default function WheelOfNames() {
     setWinner(null)
     
     // Random target based on duration
-    const minSpins = 5
     spinRef.current.velocity = 0.25 + Math.random() * 0.15
     
     let lastSliceIdx = -1
