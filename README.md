@@ -1,73 +1,93 @@
-# React + TypeScript + Vite
+# 🛡️ PrivateTools
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-id/deploy-status)](https://privatetools.netlify.app)
+![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
 
-Currently, two official plugins are available:
+**PrivateTools** is a sleek, modern, and privacy-first collection of 24+ essential developer and utility tools. Everything runs locally in your browser—no data ever leaves your machine.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[**Launch App →**](https://privatetools.netlify.app)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- **🛡️ Privacy First:** No trackers, no cookies, no server-side processing.
+- **⚡ Blazing Fast:** Built with React 18 and Vite for instant load times.
+- **🎨 Modern UI:** A beautiful, responsive dashboard with Dark Mode support.
+- **🔍 Instant Search:** Find the tool you need in milliseconds.
+- **⭐ Favorites:** Save your most-used tools for quick access.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ The Toolkit
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Category | Tools |
+| :--- | :--- |
+| **Developer** | JSON Formatter, Regex Tester, JWT Decoder, SQL Formatter |
+| **Converters** | Unit Converter, Color Converter, CSS Unit, Timestamp |
+| **Generators** | Password, UUID, QR Code, Lorem Ipsum, Favicon |
+| **Image** | Compressor, Resizer, Converter, Color Picker |
+| **Utility** | Pomodoro, Todo List, Habit Tracker, Stop Watch |
+| **Text** | Word Counter, Case Converter, Markdown Preview, Text Diff |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- Node.js (v18+)
+- npm / pnpm / yarn
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/alamin0x/private-tools.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd digital-tools
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 💻 Tech Stack
+
+- **Framework:** React 18 (TypeScript)
+- **Styling:** Vanilla CSS + Tailwind-inspired utilities
+- **Icons:** Lucide React
+- **Build Tool:** Vite
+- **Deployment:** Netlify
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+<p align="center">
+  Built with ❤️ for developers.
+</p>
