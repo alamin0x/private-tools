@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react"
 import { Link } from "react-router"
 import { tools, categories, type Category } from "@/lib/tools-registry"
-import { Search, Zap, ArrowRight } from "lucide-react"
+import { Search, ArrowRight } from "lucide-react"
+import { Logo } from "@/components/logo"
 import * as Icons from "lucide-react"
 import type React from "react"
 
@@ -41,13 +42,8 @@ export default function Home() {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div className="text-center mb-10">
         {/* Glowing icon */}
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5"
-          style={{
-            background: "linear-gradient(135deg,#7c5af3,#06b6d4)",
-            boxShadow: "0 0 48px rgba(124,90,243,0.45), 0 0 96px rgba(6,182,212,0.2)",
-          }}
-        >
-          <Zap className="h-8 w-8 text-white" />
+        <div className="inline-flex items-center justify-center w-16 h-16 mb-5 drop-shadow-[0_0_24px_rgba(124,90,243,0.5)]">
+          <Logo className="w-16 h-16" />
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold mb-3" style={{ letterSpacing: "-0.03em", lineHeight: 1.1 }}>

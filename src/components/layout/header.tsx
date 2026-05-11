@@ -2,7 +2,8 @@ import { useState } from "react"
 import { NavLink, useLocation } from "react-router"
 import { useTheme } from "@/hooks/use-theme"
 import { tools, categories, type Category } from "@/lib/tools-registry"
-import { Menu, Moon, Sun, X, Zap, Search, Command } from "lucide-react"
+import { Menu, Moon, Sun, X, Search, Command } from "lucide-react"
+import { Logo } from "@/components/logo"
 
 const categoryDots: Record<Category, string> = {
   text:      "bg-blue-400",
@@ -52,9 +53,7 @@ export function Header({ onSearchClick }: HeaderProps) {
 
           {/* Mobile brand */}
           <NavLink to="/" className="md:hidden flex items-center gap-2" style={{ textDecoration: "none" }}>
-            <div className="flex items-center justify-center w-7 h-7 rounded-lg" style={{ background: "linear-gradient(135deg,#7c5af3,#06b6d4)", boxShadow: "0 0 12px rgba(124,90,243,0.5)" }}>
-              <Zap className="w-3.5 h-3.5 text-white" />
-            </div>
+            <Logo className="w-7 h-7 drop-shadow-[0_0_8px_rgba(124,90,243,0.3)]" />
             <span className="font-bold text-sm" style={{ color: "var(--color-foreground)" }}>
               Private<span className="gradient-text">Tools</span>
             </span>
@@ -127,9 +126,7 @@ export function Header({ onSearchClick }: HeaderProps) {
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-4" style={{ borderBottom: "1px solid var(--color-sidebar-border)" }}>
               <div className="flex items-center gap-2.5">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: "linear-gradient(135deg,#7c5af3,#06b6d4)", boxShadow: "0 0 16px rgba(124,90,243,0.5)" }}>
-                  <Zap className="w-4 h-4 text-white" />
-                </div>
+                <Logo className="w-8 h-8 drop-shadow-[0_0_8px_rgba(124,90,243,0.3)]" />
                 <span className="font-bold text-base" style={{ color: "var(--color-foreground)" }}>
                   Private<span className="gradient-text">Tools</span>
                 </span>

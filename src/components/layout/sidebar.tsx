@@ -1,7 +1,8 @@
 import { NavLink, useLocation } from "react-router"
 import { tools, categories, type Category } from "@/lib/tools-registry"
-import { Zap, Star, History } from "lucide-react"
+import { Star, History } from "lucide-react"
 import { useFavorites } from "@/hooks/use-favorites"
+import { Logo } from "@/components/logo"
 
 const categoryDots: Record<Category, string> = {
   text:      "bg-blue-400",
@@ -30,9 +31,7 @@ export function Sidebar() {
     <aside className="hidden md:flex w-60 flex-col h-screen overflow-hidden" style={{ background: "var(--color-sidebar)", borderRight: "1px solid var(--color-sidebar-border)" }}>
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-5 py-5" style={{ borderBottom: "1px solid var(--color-sidebar-border)" }}>
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: "linear-gradient(135deg,#7c5af3,#06b6d4)", boxShadow: "0 0 16px rgba(124,90,243,0.5)" }}>
-          <Zap className="w-4 h-4 text-white" />
-        </div>
+        <Logo className="w-8 h-8 drop-shadow-[0_0_8px_rgba(124,90,243,0.3)]" />
         <NavLink to="/" className="font-bold text-base" style={{ color: "var(--color-foreground)", textDecoration: "none", letterSpacing: "-0.01em" }}>
           Private<span className="gradient-text">Tools</span>
         </NavLink>
