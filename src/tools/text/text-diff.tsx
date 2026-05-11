@@ -55,7 +55,7 @@ export default function TextDiff() {
       <div className="flex justify-center">
         <button
           onClick={handleCompare}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          className="btn-primary px-6 py-2"
         >
           Compare
         </button>
@@ -76,13 +76,14 @@ export default function TextDiff() {
                 return lines.map((line, lineIndex) => (
                   <div
                     key={`${index}-${lineIndex}`}
-                    className={`px-2 py-0.5 ${
+                    className="px-2 py-0.5"
+                    style={
                       part.added
-                        ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
+                        ? { background: "rgba(16, 185, 129, 0.15)", color: "var(--color-success)" }
                         : part.removed
-                        ? "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300"
-                        : "text-gray-700 dark:text-gray-300"
-                    }`}
+                        ? { background: "rgba(244, 63, 94, 0.15)", color: "var(--color-destructive)" }
+                        : { color: "var(--color-foreground)" }
+                    }
                   >
                     <span className="select-none mr-2">
                       {part.added ? "+" : part.removed ? "-" : " "}

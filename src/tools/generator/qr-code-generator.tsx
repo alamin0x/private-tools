@@ -121,7 +121,7 @@ export default function QrCodeGenerator() {
         <button
           onClick={handleGenerate}
           disabled={!text}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Generate QR Code
         </button>
@@ -132,7 +132,7 @@ export default function QrCodeGenerator() {
         {generated && (
           <button
             onClick={handleDownload}
-            className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition-colors font-medium"
+            className="btn-primary"
           >
             Download PNG
           </button>

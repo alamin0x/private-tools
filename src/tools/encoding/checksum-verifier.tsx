@@ -226,7 +226,7 @@ export default function ChecksumVerifier() {
             <button
               onClick={handleVerify}
               disabled={!expectedHash.trim()}
-              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Verify
             </button>

@@ -21,10 +21,10 @@ function getStrength(password: string): { label: string; color: string; width: s
   if (/[0-9]/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
 
-  if (score <= 2) return { label: "Weak", color: "bg-red-500", width: "w-1/4" };
-  if (score <= 3) return { label: "Fair", color: "bg-orange-500", width: "w-2/4" };
-  if (score <= 4) return { label: "Good", color: "bg-yellow-500", width: "w-3/4" };
-  return { label: "Strong", color: "bg-green-500", width: "w-full" };
+  if (score <= 2) return { label: "Weak", color: "var(--color-destructive)", width: "w-1/4" };
+  if (score <= 3) return { label: "Fair", color: "var(--color-warning)", width: "w-2/4" };
+  if (score <= 4) return { label: "Good", color: "var(--color-warning)", width: "w-3/4" };
+  return { label: "Strong", color: "var(--color-success)", width: "w-full" };
 }
 
 function generatePassword(options: PasswordOptions): string {
@@ -117,7 +117,7 @@ export default function PasswordGenerator() {
 
         <button
           onClick={handleGenerate}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors font-medium"
+          className="btn-primary w-full"
         >
           Generate Password{count > 1 ? "s" : ""}
         </button>
@@ -132,7 +132,10 @@ export default function PasswordGenerator() {
                 <span className="font-medium">{strength.label}</span>
               </div>
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div className={`h-full ${strength.color} ${strength.width} transition-all rounded-full`} />
+                <div 
+                  className={`h-full ${strength.width} transition-all rounded-full`} 
+                  style={{ background: strength.color }}
+                />
               </div>
             </div>
           )}

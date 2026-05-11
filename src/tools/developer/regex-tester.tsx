@@ -123,7 +123,7 @@ export default function RegexTester() {
         </div>
 
         {results?.error && (
-          <p className="text-red-500 text-sm font-mono">{results.error}</p>
+          <p className="text-sm font-mono" style={{ color: "var(--color-destructive)" }}>{results.error}</p>
         )}
 
         {testString && pattern && !results?.error && (
@@ -136,7 +136,11 @@ export default function RegexTester() {
                 {Array.isArray(highlightedText)
                   ? highlightedText.map((part, i) =>
                       part.highlighted ? (
-                        <span key={i} className="bg-yellow-300 dark:bg-yellow-600 rounded px-0.5">
+                        <span 
+                          key={i} 
+                          className="rounded px-0.5"
+                          style={{ background: "rgba(245, 158, 11, 0.4)", color: "inherit" }}
+                        >
                           {part.text}
                         </span>
                       ) : (

@@ -134,11 +134,12 @@ export default function StringEncoder() {
           <button
             key={type.value}
             onClick={() => setEncodingType(type.value)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            style={
               encodingType === type.value
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            }`}
+                ? { background: "var(--color-primary)", color: "white" }
+                : { background: "var(--color-surface-2)", color: "var(--color-muted-foreground)" }
+            }
           >
             {type.label}
           </button>
@@ -158,13 +159,13 @@ export default function StringEncoder() {
       <div className="flex gap-3">
         <button
           onClick={handleEncode}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          className="btn-primary px-6 py-2"
         >
           Encode
         </button>
         <button
           onClick={handleDecode}
-          className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+          className="btn-primary px-6 py-2"
         >
           Decode
         </button>

@@ -76,7 +76,7 @@ export default function TimestampConverter() {
 
       <button
         onClick={handleNow}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+        className="btn-primary px-4 py-2"
       >
         Now
       </button>

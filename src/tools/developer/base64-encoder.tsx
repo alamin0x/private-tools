@@ -98,13 +98,13 @@ export default function Base64Encoder() {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={encodeText}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="btn-primary px-4 py-2"
             >
               Encode
             </button>
             <button
               onClick={decodeText}
-              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              className="btn-primary px-4 py-2"
             >
               Decode
             </button>

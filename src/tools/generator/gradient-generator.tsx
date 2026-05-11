@@ -122,7 +122,7 @@ export default function GradientGenerator() {
             <button
               onClick={addStop}
               disabled={stops.length >= 10}
-              className="text-sm px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Add Stop
             </button>

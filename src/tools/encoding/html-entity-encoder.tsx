@@ -92,21 +92,23 @@ export default function HtmlEntityEncoder() {
         <div className="flex gap-2">
           <button
             onClick={() => handleModeChange("encode")}
-            className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
+            className="px-4 py-2 rounded text-sm font-medium transition-colors"
+            style={
               mode === "encode"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-            }`}
+                ? { background: "var(--color-primary)", color: "white" }
+                : { background: "var(--color-surface-2)", color: "var(--color-muted-foreground)" }
+            }
           >
             Encode
           </button>
           <button
             onClick={() => handleModeChange("decode")}
-            className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
+            className="px-4 py-2 rounded text-sm font-medium transition-colors"
+            style={
               mode === "decode"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-            }`}
+                ? { background: "var(--color-primary)", color: "white" }
+                : { background: "var(--color-surface-2)", color: "var(--color-muted-foreground)" }
+            }
           >
             Decode
           </button>

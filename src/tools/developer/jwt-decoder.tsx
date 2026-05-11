@@ -94,22 +94,26 @@ export default function JwtDecoder() {
 
         <button
           onClick={handleDecode}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="btn-primary px-4 py-2"
         >
           Decode
         </button>
 
-        {error && <p className="text-red-500 text-sm font-mono">{error}</p>}
+        {error && <p className="text-sm font-mono" style={{ color: "var(--color-destructive)" }}>{error}</p>}
 
         {expStatus && (
           <div
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium ${
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium"
+            style={
               expStatus.expired
-                ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-                : "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-            }`}
+                ? { background: "rgba(244, 63, 94, 0.15)", color: "var(--color-destructive)" }
+                : { background: "rgba(16, 185, 129, 0.15)", color: "var(--color-success)" }
+            }
           >
-            <span className={`w-2 h-2 rounded-full ${expStatus.expired ? "bg-red-500" : "bg-green-500"}`} />
+            <span 
+              className="w-2 h-2 rounded-full" 
+              style={{ background: expStatus.expired ? "var(--color-destructive)" : "var(--color-success)" }} 
+            />
             {expStatus.expired ? "Expired" : "Valid"} - {expStatus.date}
           </div>
         )}

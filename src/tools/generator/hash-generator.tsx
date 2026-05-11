@@ -164,7 +164,7 @@ export default function HashGenerator() {
           <button
             onClick={handleTextHash}
             disabled={!text}
-            className="mt-2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Hash Text
           </button>
