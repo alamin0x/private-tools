@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useCallback } from "react"
 import ToolHeader from "@/components/tool-header"
 import { 
   Settings2, History, Trophy, Play, Volume2, VolumeX, 
-  Sparkles, Trash2, Timer, Palette, Share2, Info
+  Trash2, Timer, Palette, Share2, Info
 } from "lucide-react"
 import confetti from "canvas-confetti"
 
