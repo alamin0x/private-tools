@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from "react"
+import React, { useRef, useState, useEffect, useCallback } from "react"
 import ToolHeader from "@/components/tool-header"
 import { 
   Settings2, History, Trophy, Play, 
@@ -78,7 +78,7 @@ export default function WheelOfNames() {
         ctx.fillStyle = colors[i % colors.length]; ctx.fill()
         ctx.strokeStyle = "rgba(0,0,0,0.1)"; ctx.lineWidth = 1; ctx.stroke()
         ctx.save(); ctx.translate(cx, cy); ctx.rotate(start + sliceAngle / 2); ctx.textAlign = "right"; ctx.fillStyle = "white"
-        let txt = name.length > 15 ? name.slice(0, 12) + "..." : name
+        const txt = name.length > 15 ? name.slice(0, 12) + "..." : name
         const fSize = Math.max(10, Math.min(18, 380 / names.length))
         ctx.font = `900 ${fSize}px Inter`; ctx.shadowColor = "rgba(0,0,0,0.4)"; ctx.shadowBlur = 4
         ctx.fillText(txt, r - 25, fSize / 3); ctx.restore()
@@ -93,12 +93,24 @@ export default function WheelOfNames() {
   }, [names, theme])
 
   useEffect(() => {
-    const canvas = canvasRef.current; if (!canvas) return
-    const dpr = window.devicePixelRatio || 1; const size = Math.min(window.innerHeight * 0.5, 500)
-    canvas.width = size * dpr; canvas.height = size * dpr; canvas.getContext("2d")!.scale(dpr, dpr); draw()
+    const handleResize = () => {
+      const canvas = canvasRef.current; if (!canvas) return
+      const dpr = window.devicePixelRatio || 1
+      const size = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.5, 500)
+      canvas.width = size * dpr; canvas.height = size * dpr; canvas.getContext("2d")!.scale(dpr, dpr); draw()
+    }
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [draw])
 
-  const spin = () => {
+  const finish = useCallback((win: string) => {
+    setSpinning(false); setWinner(win); setHistory(h => [win, ...h].slice(0, 100))
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: THEMES[theme] })
+    if (removeWinner) setTimeout(() => setInput(i => i.split("\n").filter(n => n.trim() !== win).join("\n")), 2000)
+  }, [theme, removeWinner])
+
+  const spin = useCallback(() => {
     if (spinning || names.length < 2) return
     if (!audioContextRef.current) audioContextRef.current = new AudioContext()
     setSpinning(true); setWinner(null)
@@ -110,29 +122,25 @@ export default function WheelOfNames() {
       if (Math.floor(state.angle / slice) !== Math.floor(state.lastTickAngle / slice)) { playMetallicTick(); state.lastTickAngle = state.angle }
       draw()
       if (state.velocity > 0.0008) state.frameReq = requestAnimationFrame(animate)
-      else finish()
+      else {
+        const finalSlice = (2 * Math.PI) / names.length; const angle = (Math.PI * 1.5 - stateRef.current.angle) % (Math.PI * 2)
+        const idx = Math.floor((angle < 0 ? angle + Math.PI * 2 : angle) / finalSlice) % names.length; const win = names[idx]
+        finish(win)
+      }
     }
     state.frameReq = requestAnimationFrame(animate)
-  }
-
-  const finish = () => {
-    setSpinning(false); const slice = (2 * Math.PI) / names.length; const angle = (Math.PI * 1.5 - stateRef.current.angle) % (Math.PI * 2)
-    const idx = Math.floor((angle < 0 ? angle + Math.PI * 2 : angle) / slice) % names.length; const win = names[idx]
-    setWinner(win); setHistory(h => [win, ...h].slice(0, 100))
-    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: THEMES[theme] })
-    if (removeWinner) setTimeout(() => setInput(i => i.split("\n").filter(n => n.trim() !== win).join("\n")), 2000)
-  }
+  }, [spinning, names, duration, playMetallicTick, draw, finish])
 
   const copyHistory = () => { navigator.clipboard.writeText(history.join("\n")); setCopied(true); setTimeout(() => setCopied(false), 2000) }
 
   return (
-    <div className="h-[calc(100vh-120px)] flex flex-col px-6 overflow-hidden select-none">
+    <div className="flex flex-col px-4 lg:px-6 select-none">
       <ToolHeader title="Pro Wheel Picker" description="" />
       
-      <div className="flex-1 grid lg:grid-cols-12 gap-8 overflow-hidden py-4 min-h-0">
-        {/* Left Col */}
-        <div className="lg:col-span-3 flex flex-col gap-6 overflow-hidden">
-          <div className="glass rounded-[2rem] p-6 flex flex-col flex-1 min-h-0 relative shadow-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 py-4">
+        {/* Left Col - Input & Controls */}
+        <div className="order-2 lg:order-1 lg:col-span-3 flex flex-col gap-6">
+          <div className="glass rounded-[2rem] p-6 flex flex-col min-h-[300px] lg:h-[400px] relative shadow-2xl">
             <div className="flex items-center gap-2.5 mb-4 px-1">
               <Type className="w-4 h-4 text-primary-light" />
               <input className="bg-transparent text-sm font-black uppercase tracking-wider border-none outline-none focus:ring-0 p-0 w-full" value={title} onChange={e => setTitle(e.target.value)} placeholder="WHEEL TITLE..." />
@@ -164,8 +172,8 @@ export default function WheelOfNames() {
           </div>
         </div>
 
-        {/* Center Col */}
-        <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
+        {/* Center Col - Wheel */}
+        <div className="order-1 lg:order-2 lg:col-span-6 flex flex-col items-center justify-center relative py-8 lg:py-0">
           <div className="text-center mb-8"><h2 className="text-3xl font-black uppercase tracking-[0.2em] text-foreground drop-shadow-2xl">{title}</h2><div className="h-1 w-12 bg-primary mx-auto mt-2 rounded-full opacity-50" /></div>
           <div className="relative group cursor-pointer mb-10" onClick={spin}>
             <div className={`absolute inset-0 rounded-full blur-[80px] transition-all duration-1000 ${spinning ? "opacity-40 scale-110" : "opacity-10 scale-100"}`} style={{ background: THEMES[theme][0] }} />
@@ -177,9 +185,9 @@ export default function WheelOfNames() {
           </button>
         </div>
 
-        {/* Right Col */}
-        <div className="lg:col-span-3 flex flex-col overflow-hidden">
-          <div className="glass rounded-[2rem] p-6 flex flex-col flex-1 overflow-hidden shadow-2xl">
+        {/* Right Col - History */}
+        <div className="order-3 lg:order-3 lg:col-span-3 flex flex-col">
+          <div className="glass rounded-[2rem] p-6 flex flex-col h-[400px] shadow-2xl">
             <div className="flex items-center justify-between mb-6 px-1">
               <div className="flex items-center gap-2.5"><History className="w-4 h-4 text-primary-light" /><span className="text-xs font-black uppercase tracking-widest">Winners</span></div>
               {history.length > 0 && (<div className="flex gap-2">
@@ -231,7 +239,7 @@ export default function WheelOfNames() {
   )
 }
 
-function RotateCcw(props: any) {
+function RotateCcw(props: React.ComponentPropsWithoutRef<"svg">) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
