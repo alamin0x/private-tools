@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useCallback } from "react"
 import ToolHeader from "@/components/tool-header"
 
 export default function ImageCropper() {
@@ -15,18 +15,17 @@ export default function ImageCropper() {
     setResult(null)
   }
 
-  function mouseDown(e: React.MouseEvent, type: string) {
-    e.preventDefault()
+  const startDrag = useCallback((clientX: number, clientY: number, type: string) => {
     setDragging(type)
-    setDragStart({ mx: e.clientX, my: e.clientY, bx: cropBox.x, by: cropBox.y, bw: cropBox.w, bh: cropBox.h })
-  }
+    setDragStart({ mx: clientX, my: clientY, bx: cropBox.x, by: cropBox.y, bw: cropBox.w, bh: cropBox.h })
+  }, [cropBox])
 
-  function mouseMove(e: React.MouseEvent) {
+  const moveDrag = useCallback((clientX: number, clientY: number) => {
     if (!dragging) return
-    const dx = e.clientX - dragStart.mx, dy = e.clientY - dragStart.my
+    const dx = clientX - dragStart.mx, dy = clientY - dragStart.my
     if (dragging === "move") setCropBox(b => ({ ...b, x: dragStart.bx + dx, y: dragStart.by + dy }))
     else if (dragging === "se") setCropBox(b => ({ ...b, w: Math.max(40, dragStart.bw + dx), h: Math.max(40, dragStart.bh + dy) }))
-  }
+  }, [dragging, dragStart])
 
   function crop() {
     if (!imgRef.current || !src) return
@@ -39,12 +38,12 @@ export default function ImageCropper() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-5">
+    <div className="max-w-3xl mx-auto space-y-5 px-4 sm:px-0">
       <ToolHeader title="Image Cropper" description="Drag to select and crop any region of your image." />
 
       {!src ? (
         <label className="block cursor-pointer">
-          <div className="rounded-xl p-12 text-center border-2 border-dashed transition-colors" style={{ borderColor: "var(--color-border)", background: "var(--color-surface-2)" }}>
+          <div className="rounded-xl p-8 sm:p-12 text-center border-2 border-dashed transition-colors" style={{ borderColor: "var(--color-border)", background: "var(--color-surface-2)" }}>
             <p className="text-3xl mb-2">✂️</p>
             <p className="font-semibold" style={{ color: "var(--color-foreground)" }}>Click to upload an image</p>
             <p className="text-sm" style={{ color: "var(--color-muted-foreground)" }}>PNG, JPG, WebP supported</p>
@@ -53,17 +52,25 @@ export default function ImageCropper() {
         </label>
       ) : (
         <div className="space-y-4">
-          <div className="relative inline-block select-none overflow-hidden rounded-xl" style={{ border: "1px solid var(--color-border)", cursor: dragging === "move" ? "grabbing" : "default" }}
-            onMouseMove={mouseMove} onMouseUp={() => setDragging(null)} onMouseLeave={() => setDragging(null)}>
-            <img ref={imgRef} src={src} alt="crop" style={{ display: "block", maxWidth: "100%", maxHeight: "400px" }} draggable={false} />
-            <div onMouseDown={e => mouseDown(e, "move")}
+          <div className="relative inline-block select-none overflow-hidden rounded-xl w-full sm:w-auto" style={{ border: "1px solid var(--color-border)", cursor: dragging === "move" ? "grabbing" : "default" }}
+            onMouseMove={e => moveDrag(e.clientX, e.clientY)} 
+            onMouseUp={() => setDragging(null)} 
+            onMouseLeave={() => setDragging(null)}
+            onTouchMove={e => moveDrag(e.touches[0].clientX, e.touches[0].clientY)}
+            onTouchEnd={() => setDragging(null)}>
+            <img ref={imgRef} src={src} alt="crop" className="block max-w-full max-h-[60vh] sm:max-h-[400px] pointer-events-none" draggable={false} />
+            <div 
+              onMouseDown={e => { e.preventDefault(); startDrag(e.clientX, e.clientY, "move") }}
+              onTouchStart={e => startDrag(e.touches[0].clientX, e.touches[0].clientY, "move")}
               style={{ position: "absolute", left: cropBox.x, top: cropBox.y, width: cropBox.w, height: cropBox.h, border: "2px solid #7c5af3", boxShadow: "0 0 0 9999px rgba(0,0,0,0.5)", cursor: "grab", background: "transparent" }}>
-              <div onMouseDown={e => { e.stopPropagation(); mouseDown(e, "se") }}
-                style={{ position: "absolute", right: -5, bottom: -5, width: 12, height: 12, background: "#7c5af3", cursor: "se-resize", borderRadius: 2 }} />
+              <div 
+                onMouseDown={e => { e.stopPropagation(); e.preventDefault(); startDrag(e.clientX, e.clientY, "se") }}
+                onTouchStart={e => { e.stopPropagation(); startDrag(e.touches[0].clientX, e.touches[0].clientY, "se") }}
+                style={{ position: "absolute", right: -5, bottom: -5, width: 15, height: 15, background: "#7c5af3", cursor: "se-resize", borderRadius: 4 }} />
             </div>
           </div>
           <p className="text-xs" style={{ color: "var(--color-muted-foreground)" }}>Drag the box to move · Drag the corner to resize</p>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button onClick={crop} className="btn-primary flex-1 py-2.5">✂️ Crop</button>
             <button onClick={() => { setSrc(null); setResult(null) }} className="px-4 py-2.5 rounded-lg text-sm font-semibold" style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)", color: "var(--color-muted-foreground)" }}>New Image</button>
           </div>
@@ -73,7 +80,7 @@ export default function ImageCropper() {
       {result && (
         <div className="space-y-3">
           <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-border)" }}>
-            <img src={result} alt="cropped" style={{ maxWidth: "100%" }} />
+            <img src={result} alt="cropped" className="max-w-full h-auto mx-auto" />
           </div>
           <a href={result} download="cropped.png" className="btn-primary block text-center py-2.5">⬇ Download Cropped Image</a>
         </div>

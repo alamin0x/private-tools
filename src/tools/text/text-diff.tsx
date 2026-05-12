@@ -23,29 +23,29 @@ export default function TextDiff() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6">
       <ToolHeader
         title="Text Diff"
         description="Compare two texts and highlight the differences between them."
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="text-sm font-medium" style={{ color: "var(--color-muted-foreground)" }}>
             Original Text
           </label>
           <textarea
-            className="w-full h-48 p-4 border border-gray-300 rounded-lg resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+            className="input-base w-full h-48 sm:h-64 p-4 resize-y font-mono text-sm"
             placeholder="Paste original text here..."
             value={original}
             onChange={(e) => setOriginal(e.target.value)}
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="text-sm font-medium" style={{ color: "var(--color-muted-foreground)" }}>
             Modified Text
           </label>
           <textarea
-            className="w-full h-48 p-4 border border-gray-300 rounded-lg resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+            className="input-base w-full h-48 sm:h-64 p-4 resize-y font-mono text-sm"
             placeholder="Paste modified text here..."
             value={modified}
             onChange={(e) => setModified(e.target.value)}
@@ -55,19 +55,19 @@ export default function TextDiff() {
       <div className="flex justify-center">
         <button
           onClick={handleCompare}
-          className="btn-primary px-6 py-2"
+          className="btn-primary px-8 py-3 font-bold uppercase tracking-wider"
         >
-          Compare
+          Compare Texts
         </button>
       </div>
       {hasCompared && (
-        <div className="border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
-          <div className="bg-gray-100 dark:bg-gray-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div className="rounded-xl overflow-hidden shadow-2xl" style={{ border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+          <div className="px-4 py-3 text-xs font-black uppercase tracking-widest" style={{ background: "var(--color-surface-2)", borderBottom: "1px solid var(--color-border)", color: "var(--color-muted-foreground)" }}>
             Diff Result
           </div>
-          <div className="p-4 font-mono text-sm overflow-x-auto">
+          <div className="p-4 font-mono text-sm overflow-x-auto custom-scrollbar">
             {diffResult.length === 0 ? (
-              <p className="text-gray-500 dark:text-gray-400">No differences found.</p>
+              <p style={{ color: "var(--color-muted-foreground)" }}>No differences found.</p>
             ) : (
               diffResult.map((part, index) => {
                 const lines = part.value.split("\n").filter((line, i, arr) =>
@@ -76,16 +76,16 @@ export default function TextDiff() {
                 return lines.map((line, lineIndex) => (
                   <div
                     key={`${index}-${lineIndex}`}
-                    className="px-2 py-0.5"
+                    className="px-2 py-0.5 whitespace-pre"
                     style={
                       part.added
-                        ? { background: "rgba(16, 185, 129, 0.15)", color: "var(--color-success)" }
+                        ? { background: "rgba(16, 185, 129, 0.1)", color: "#10b981" }
                         : part.removed
-                        ? { background: "rgba(244, 63, 94, 0.15)", color: "var(--color-destructive)" }
+                        ? { background: "rgba(244, 63, 94, 0.1)", color: "#f43f5e" }
                         : { color: "var(--color-foreground)" }
                     }
                   >
-                    <span className="select-none mr-2">
+                    <span className="select-none mr-3 opacity-50">
                       {part.added ? "+" : part.removed ? "-" : " "}
                     </span>
                     {line}

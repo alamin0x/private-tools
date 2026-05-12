@@ -2,8 +2,9 @@ import { useState } from "react"
 import { NavLink, useLocation } from "react-router"
 import { useTheme } from "@/hooks/use-theme"
 import { tools, categories, type Category } from "@/lib/tools-registry"
-import { Menu, Moon, Sun, X, Search, Command } from "lucide-react"
+import { Menu, Moon, Sun, X, Search, Command, Star, History } from "lucide-react"
 import { Logo } from "@/components/logo"
+import { useFavorites } from "@/hooks/use-favorites"
 
 const categoryDots: Record<Category, string> = {
   text:      "bg-blue-400",
@@ -26,8 +27,15 @@ export function Header({ onSearchClick }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
   const categoryKeys = Object.keys(categories) as Category[]
+  const { favorites, recents } = useFavorites()
 
   const currentTool = tools.find((t) => location.pathname === `/${t.id}`)
+  
+  const favoriteTools = tools.filter(t => favorites.includes(t.id))
+  const recentTools = recents
+    .map(id => tools.find(t => t.id === id))
+    .filter((t): t is typeof tools[0] => !!t)
+    .slice(0, 5)
 
   return (
     <>
@@ -77,6 +85,20 @@ export function Header({ onSearchClick }: HeaderProps) {
 
         {/* Right */}
         <div className="flex items-center gap-2">
+          {/* Mobile search button */}
+          <button
+            onClick={onSearchClick}
+            className="md:hidden p-2 rounded-lg transition-all"
+            style={{
+              color: "var(--color-muted-foreground)",
+              background: "var(--color-surface-2)",
+              border: "1px solid var(--color-border)",
+            }}
+            aria-label="Search tools"
+          >
+            <Search className="h-4 w-4" />
+          </button>
+
           <button
             onClick={onSearchClick}
             className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-xs font-medium"
@@ -141,7 +163,51 @@ export function Header({ onSearchClick }: HeaderProps) {
             </div>
 
             {/* Nav */}
-            <nav className="p-3 space-y-5">
+            <nav className="p-3 space-y-7">
+              {/* Favorites - Mobile */}
+              {favoriteTools.length > 0 && (
+                <div>
+                  <div className="section-label flex items-center gap-1.5 mb-1.5">
+                    <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                    Favorites
+                  </div>
+                  <ul className="space-y-0.5">
+                    {favoriteTools.map((tool) => {
+                      const isActive = location.pathname === `/${tool.id}`
+                      return (
+                        <li key={tool.id}>
+                          <NavLink to={`/${tool.id}`} onClick={() => setMobileOpen(false)} className={`nav-item ${isActive ? "active" : ""}`}>
+                            {tool.name}
+                          </NavLink>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
+
+              {/* Recents - Mobile */}
+              {recentTools.length > 0 && (
+                <div>
+                  <div className="section-label flex items-center gap-1.5 mb-1.5">
+                    <History className="w-3.5 h-3.5 text-blue-400" />
+                    Recently Used
+                  </div>
+                  <ul className="space-y-0.5">
+                    {recentTools.map((tool) => {
+                      const isActive = location.pathname === `/${tool.id}`
+                      return (
+                        <li key={tool.id}>
+                          <NavLink to={`/${tool.id}`} onClick={() => setMobileOpen(false)} className={`nav-item ${isActive ? "active" : ""}`}>
+                            {tool.name}
+                          </NavLink>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
+
               {categoryKeys.map((cat) => (
                 <div key={cat}>
                   <div className="section-label flex items-center gap-1.5">
