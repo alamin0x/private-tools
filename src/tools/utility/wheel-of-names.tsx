@@ -97,7 +97,10 @@ export default function WheelOfNames() {
       const canvas = canvasRef.current; if (!canvas) return
       const dpr = window.devicePixelRatio || 1
       const size = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.5, 500)
-      canvas.width = size * dpr; canvas.height = size * dpr; canvas.getContext("2d")!.scale(dpr, dpr); draw()
+      canvas.width = size * dpr; canvas.height = size * dpr;
+      canvas.style.width = `${size}px`;
+      canvas.style.height = `${size}px`;
+      canvas.getContext("2d")!.scale(dpr, dpr); draw()
     }
     handleResize()
     window.addEventListener("resize", handleResize)
@@ -210,18 +213,18 @@ export default function WheelOfNames() {
 
       {/* Modern Winner Overlay */}
       {winner && !spinning && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-xl animate-fade-in">
-          <div className="relative glass p-12 rounded-[4rem] border-2 border-primary-light shadow-[0_0_120px_rgba(124,90,243,0.5)] text-center max-w-sm w-full space-y-8 overflow-hidden group">
-            <button onClick={() => setWinner(null)} className="absolute top-8 right-8 p-2 rounded-full hover:bg-white/10 transition-colors"><X className="w-5 h-5 text-muted-foreground" /></button>
-            <div className="w-28 h-28 rounded-[2.5rem] bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center mx-auto rotate-12 group-hover:rotate-0 transition-transform duration-700 shadow-2xl border border-white/10">
-              <Trophy className="w-14 h-14 text-amber-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 lg:p-6 bg-black/60 backdrop-blur-xl animate-fade-in">
+          <div className="relative glass p-8 lg:p-12 rounded-[2.5rem] lg:rounded-[4rem] border-2 border-primary-light shadow-[0_0_120px_rgba(124,90,243,0.5)] text-center max-w-sm w-full space-y-6 lg:space-y-8 overflow-hidden group">
+            <button onClick={() => setWinner(null)} className="absolute top-4 right-4 lg:top-8 lg:right-8 p-2 rounded-full hover:bg-white/10 transition-colors"><X className="w-5 h-5 text-muted-foreground" /></button>
+            <div className="w-20 h-20 lg:w-28 lg:h-28 rounded-[1.5rem] lg:rounded-[2.5rem] bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center mx-auto rotate-12 group-hover:rotate-0 transition-transform duration-700 shadow-2xl border border-white/10">
+              <Trophy className="w-10 h-10 lg:w-14 lg:h-14 text-amber-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]" />
             </div>
             <div className="space-y-2">
               <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary-light animate-pulse">Winner Selected</p>
-              <h2 className="text-6xl font-black gradient-text tracking-tighter leading-tight drop-shadow-sm">{winner}</h2>
+              <h2 className="text-4xl lg:text-6xl font-black gradient-text tracking-tighter leading-tight drop-shadow-sm break-words">{winner}</h2>
             </div>
             <div className="flex gap-4 pt-4">
-              <button onClick={() => { setWinner(null); spin(); }} className="flex-1 py-5 rounded-[1.5rem] bg-primary hover:bg-primary-light text-[10px] font-black uppercase tracking-[0.2em] text-white transition-all flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(124,90,243,0.4)]">
+              <button onClick={() => { setWinner(null); spin(); }} className="flex-1 py-4 lg:py-5 rounded-[1rem] lg:rounded-[1.5rem] bg-primary hover:bg-primary-light text-[10px] font-black uppercase tracking-[0.2em] text-white transition-all flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(124,90,243,0.4)]">
                 <Sparkles className="w-4 h-4" /> Spin Again
               </button>
             </div>
