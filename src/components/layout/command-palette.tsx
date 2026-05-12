@@ -19,9 +19,12 @@ export function CommandPalette({ isOpen, onClose }: { isOpen: boolean; onClose: 
 
   useEffect(() => {
     if (isOpen) {
-      setQuery("")
-      setSelectedIndex(0)
-      const t = setTimeout(() => inputRef.current?.focus(), 50)
+      // Small delay to ensure the reset happens after the initial render of the open state
+      const t = setTimeout(() => {
+        setQuery("")
+        setSelectedIndex(0)
+        inputRef.current?.focus()
+      }, 50)
       return () => clearTimeout(t)
     }
   }, [isOpen])
